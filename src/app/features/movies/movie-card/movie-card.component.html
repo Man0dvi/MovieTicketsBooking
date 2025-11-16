@@ -1,7 +1,16 @@
 <!-- src/app/features/movies/movie-card/movie-card.component.html -->
-<a class="movie-card" [routerLink]="['/movies', movie.id, 'schedule']" [attr.aria-label]="movie?.title">
-
-  <img [src]="posterUrl" [alt]="movie.title" />
+<!-- the root is clickable and keyboard-accessible (role + tabindex) -->
+<article
+  class="movie-card"
+  role="button"
+  tabindex="0"
+  (click)="onActivate()"
+  (keydown)="onKeydown($event)"
+  [attr.aria-label]="movie?.title"
+>
+  <div class="poster-wrap">
+    <img [src]="posterUrl" [alt]="movie.title" />
+  </div>
 
   <div class="info">
     <h3 class="title">{{ movie.title }}</h3>
@@ -15,5 +24,4 @@
     <!-- optional injected actions -->
     <ng-content select="[card-actions]"></ng-content>
   </div>
-
-</a>
+</article>
