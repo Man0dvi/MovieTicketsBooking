@@ -1,23 +1,29 @@
-<!-- home.component.html -->
- <div class="search-wrapper">
-  <input type="search"
-         placeholder="Search movies..."
-         [formControl]="searchControl">
+<!-- Home (Signal-based) -->
+<div class="search-wrapper">
+  <input
+    type="search"
+    placeholder="Search movies..."
+    [value]="query()"
+    (input)="query.set($any($event.target).value)"
+    aria-label="Search movies"
+  />
 
-  <button *ngIf="isSearching" (click)="clearSearch()">✕</button>
+  <button *ngIf="isSearching" (click)="clearSearch()" aria-label="Clear search">✕</button>
 </div>
-<!-- Filtered results block -->
+
+<!-- Filtered results -->
 <div *ngIf="isSearching">
   <h2>Filtered</h2>
 
   <div class="movie-row">
     <app-movie-card
-      *ngFor="let m of filteredMovies"
-      [movie]="m">
+      *ngFor="let m of filteredMovies()"
+      [movie]="m"
+      (cardClick)="openMovie($event)">
     </app-movie-card>
   </div>
 
-  <div *ngIf="filteredMovies.length === 0" class="no-results">
+  <div *ngIf="filteredMovies().length === 0" class="no-results">
     No results found.
   </div>
 </div>
@@ -42,7 +48,7 @@
 
       <div class="row" id="section-row-{{i}}">
         <ng-container *ngFor="let m of s.movies">
-          <app-movie-card [movie]="m"></app-movie-card>
+          <app-movie-card [movie]="m" (cardClick)="openMovie($event)"></app-movie-card>
         </ng-container>
       </div>
     </section>
