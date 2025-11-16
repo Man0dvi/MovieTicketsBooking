@@ -1,0 +1,27 @@
+/* src/app/features/payment/payment-confirmation.component.scss */
+:host { display:block; min-height:100vh; background: linear-gradient(135deg,#211127 0%, #5b2b62 60%); color:#fff; font-family: Inter, Roboto, Arial; }
+.payment-confirm-shell{max-width:1100px;margin:2.5rem auto;padding:2rem}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.logo{font-weight:700;opacity:0.9}
+.page-title{font-size:1.25rem;letter-spacing:1px}
+.layout{display:flex;gap:2rem;align-items:flex-start}
+.left{flex:1; padding:1.2rem 1.4rem}
+.left h3{margin-top:0;color:#f1e6f5}
+.details{background:transparent;padding:0.6rem 0}
+.line{display:flex;gap:0.5rem;margin:0.6rem 0}
+.label{width:90px; color:#cdb7d4}
+.value{font-weight:600}
+.back-link{margin-top:1.2rem;background:transparent;border:0;color:#ffccd5;cursor:pointer}
+
+.right{width:380px}
+.order-card{background:rgba(255,255,255,0.06);padding:1.2rem;border-radius:12px;color:#fff;border:1px solid rgba(255,255,255,0.06)}
+.order-card h4{margin:0 0 0.6rem 0}
+.row{display:flex;justify-content:space-between;margin:0.4rem 0}
+.total{margin-top:0.6rem;font-size:1.05rem}
+.buy-btn{display:block;width:100%;padding:0.9rem;background:#e50914;color:#fff;border:none;border-radius:8px;margin-top:1rem;cursor:pointer;font-weight:600}
+.buy-btn[disabled]{opacity:0.5;cursor:not-allowed}
+
+.promo{color:#c9a8c9;margin:0.5rem 0}
+.payment-method{margin-top:0.8rem;font-size:0.85rem;color:#d9c7d8}
+.no-booking{max-width:800px;margin:3rem auto;text-align:center}
+.back-to-movies{color:#ffc0d1}

@@ -1,0 +1,74 @@
+<!-- src/app/features/schedule/schedule.component.html -->
+<div class="schedule-shell">
+  <div class="container">
+
+    <!-- left column -->
+    <main class="left-col">
+      <h2 class="page-title">SCHEDULES</h2>
+
+      <!-- dates row -->
+      <div class="dates-row">
+        <button *ngFor="let d of dates" (click)="selectedDateIso = d.iso"
+                [class.active]="selectedDateIso === d.iso">{{ d.label }}</button>
+      </div>
+
+      <!-- theater list -->
+      <div class="theaters">
+        <div *ngFor="let th of theaters" class="theater">
+          <div class="theater-header">
+            <div class="th-info">
+              <div class="th-name">{{ th.name }}</div>
+              <div class="th-location">{{ th.location }}</div>
+            </div>
+            <div class="th-price">from {{ money(th.showtimes?.[0]?.price_min || th.showtimes?.[0]?.price || 0) }}</div>
+          </div>
+
+          <div class="showtypes">
+            <div *ngFor="let s of th.showtimes" class="showtype-block">
+              <div class="type-row">
+                <div class="type-name">{{ s.type }}</div>
+                <div class="type-price">{{ money(s.price || s.price_min || s.price_max) }}</div>
+              </div>
+              <div class="times">
+                <button *ngFor="let t of s.times"
+                        (click)="pickShow(th, s, t)"
+                        [class.sel]="selectedTheater?.id===th.id && selectedShow?.time===t && selectedShow?.showtype===s.type">
+                  {{ t }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- right column: movie summary + selected show -->
+    <aside class="right-col">
+      <div class="poster" *ngIf="movie">
+        <img [src]="'/assets/posters/' + movie.id + '.png'" [alt]="movie.title" />
+      </div>
+
+      <div class="movie-meta" *ngIf="movie">
+        <h3>{{ movie.title }}</h3>
+        <div class="meta-row">
+          <span>{{ movie.genre?.join(', ') || '' }}</span>
+          <span>• {{ movie.duration || movie['duration'] || '' }}</span>
+          <span>• {{ movie.certification || '' }}</span>
+        </div>
+        <p class="desc" *ngIf="movie.director"><strong>Director:</strong> {{ movie.director }}</p>
+
+        <div class="selected-card" *ngIf="selectedTheater && selectedShow">
+          <div class="sel-info">
+            <div class="theater-name">{{ selectedTheater.name }}</div>
+            <div class="sel-meta">{{ selectedShow.showtype }} • {{ selectedDateIso }} • {{ selectedShow.time }}</div>
+          </div>
+          <div class="price">Price: {{ money(selectedShow.price) }}</div>
+          <button class="book-btn" (click)="bookNow()">BOOK NOW</button>
+        </div>
+
+        <div class="hint" *ngIf="!selectedShow">Select a time to book</div>
+      </div>
+    </aside>
+
+  </div>
+</div>

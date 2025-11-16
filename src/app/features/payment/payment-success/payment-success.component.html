@@ -1,0 +1,25 @@
+<!-- src/app/features/payment/payment-success.component.html -->
+<div class="success-shell">
+  <div class="success-inner">
+    <h1>Payment successful!</h1>
+
+    <img src="assets/posters/success-illustration.png" alt="success" class="success-illustration" *ngIf="true">
+
+    <div *ngIf="tx; else noTx">
+      <p class="muted">Transaction details have been sent to your email. You can also check ticket details in My Tickets.</p>
+
+      <div class="tx-card">
+        <div><strong>Transaction id:</strong> {{ tx.id }}</div>
+        <div><strong>Amount paid:</strong> Rs. {{ tx.amount }}</div>
+        <div><strong>Seats:</strong> {{ tx.booking.seats.join(', ') }}</div>
+      </div>
+
+      <button (click)="explore()" class="explore-btn">Explore Movies</button>
+    </div>
+
+    <ng-template #noTx>
+      <p>No recent transaction found.</p>
+      <a routerLink="/home" class="explore-link">Explore Movies</a>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<!-- home.component.html -->
+ <div class="search-wrapper">
+  <input type="search"
+         placeholder="Search movies..."
+         [formControl]="searchControl">
+
+  <button *ngIf="isSearching" (click)="clearSearch()">✕</button>
+</div>
+<!-- Filtered results block -->
+<div *ngIf="isSearching">
+  <h2>Filtered</h2>
+
+  <div class="movie-row">
+    <app-movie-card
+      *ngFor="let m of filteredMovies"
+      [movie]="m">
+    </app-movie-card>
+  </div>
+
+  <div *ngIf="filteredMovies.length === 0" class="no-results">
+    No results found.
+  </div>
+</div>
+
+<div class="home-shell">
+  <header class="hero">
+    <div class="hero-inner">
+      <h1 class="site-title">Cinemania Delight</h1>
+      <p class="hero-sub">Discover movies now showing & coming soon</p>
+    </div>
+  </header>
+
+  <main class="content">
+    <section *ngFor="let s of sections; let i = index" class="movie-section">
+      <div class="section-header">
+        <h2>{{ s.name }}</h2>
+        <div class="controls">
+          <button (click)="scrollPrev(i)" aria-label="Previous">‹</button>
+          <button (click)="scrollNext(i)" aria-label="Next">›</button>
+        </div>
+      </div>
+
+      <div class="row" id="section-row-{{i}}">
+        <ng-container *ngFor="let m of s.movies">
+          <app-movie-card [movie]="m"></app-movie-card>
+        </ng-container>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">Cinemania Delight</div>
+      <div class="newsletter">
+        <h4>Join our newsletter</h4>
+        <input placeholder="Your email" />
+      </div>
+      <div class="links">
+        <ul>
+          <li>Menu</li>
+          <li>Theaters</li>
+          <li>IMAX</li>
+          <li>Playcenter</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>

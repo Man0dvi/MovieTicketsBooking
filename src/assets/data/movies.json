@@ -1,0 +1,112 @@
+[
+  {
+    "id": "movie_001",
+    "title": "The Batman (2022)",
+    "image": "the_batman_2022_placeholder_image",
+    "rating": "8.0/10",
+    "duration": "176 min",
+    "certification": "PG-13",
+    "director": "Matt Reeves",
+    "genre": ["Action", "Crime", "Drama"]
+  },
+  {
+    "id": "movie_002",
+    "title": "Spiderman : No Way Home",
+    "image": "spiderman_no_way_home_placeholder_image",
+    "rating": "8.7/10",
+    "duration": "112 min",
+    "certification": "PG",
+    "director": "Jon Watts",
+    "genre": ["Action", "Adventure", "Sci-Fi"]
+  },
+  {
+    "id": "movie_003",
+    "title": "Doctor Strange in the Multiverse of Madness",
+    "image": "doctor_strange_multiverse_of_madness_placeholder_image",
+    "rating": "7.5/10",
+    "duration": "126 min",
+    "certification": "PG-13",
+    "director": "Sam Raimi",
+    "genre": ["Action", "Adventure", "Fantasy"]
+  },
+  {
+    "id": "movie_004",
+    "title": "The Northman",
+    "image": "the_northman_placeholder_image",
+    "rating": "7.4/10",
+    "duration": "137 min",
+    "certification": "R",
+    "director": "Robert Eggers",
+    "genre": ["Action", "Adventure", "Drama"]
+  },
+  {
+    "id": "movie_005",
+    "title": "Uncharted",
+    "image": "uncharted_placeholder_image",
+    "rating": "7.2/10",
+    "duration": "116 min",
+    "certification": "PG-13",
+    "director": "Ruben Fleischer",
+    "genre": ["Action", "Adventure"]
+  },
+  {
+    "id": "movie_006",
+    "title": "Sonic the Hedgehog 2",
+    "image": "sonic_the_hedgehog_2_placeholder_image",
+    "rating": "7.7/10",
+    "duration": "122 min",
+    "certification": "PG",
+    "director": "Jeff Fowler",
+    "genre": ["Animation", "Action", "Adventure"]
+  },
+  {
+    "id": "movie_007",
+    "title": "The Lost City",
+    "image": "the_lost_city_placeholder_image",
+    "rating": "6.7/10",
+    "duration": "112 min",
+    "certification": "PG-13",
+    "director": "Aaron Nee, Adam Nee",
+    "genre": ["Action", "Adventure", "Comedy"]
+  },
+  {
+    "id": "movie_008",
+    "title": "Firestarter",
+    "image": "firestarter_placeholder_image",
+    "release_date": "12 May 2022",
+    "duration": "94 min",
+    "certification": "R",
+    "director": "Keith Thomas",
+    "genre": ["Horror", "Sci-Fi", "Thriller"]
+  },
+  {
+    "id": "movie_009",
+    "title": "Jurassic World Dominion",
+    "image": "jurassic_world_dominion_placeholder_image",
+    "release_date": "10 June 2022",
+    "duration": "146 min",
+    "certification": "PG-13",
+    "director": "Colin Trevorrow",
+    "genre": ["Action", "Adventure", "Sci-Fi"]
+  },
+  {
+    "id": "movie_010",
+    "title": "Top Gun 2: Maverick",
+    "image": "top_gun_2_maverick_placeholder_image",
+    "release_date": "27 May 2022",
+    "duration": "137 min",
+    "certification": "PG-13",
+    "director": "Joseph Kosinski",
+    "genre": ["Action", "Drama"]
+  },
+  {
+    "id": "movie_011",
+    "title": "Minions: The Rise of Gru",
+    "image": "minions_the_rise_of_gru_placeholder_image",
+    "release_date": "01 July 2022",
+    "duration": "182 min",
+    "certification": "G",
+    "director": "Kyle Balda, Brad Ableson, Jonathan del Val",
+    "genre": ["Animation", "Adventure", "Comedy"]
+  }
+]

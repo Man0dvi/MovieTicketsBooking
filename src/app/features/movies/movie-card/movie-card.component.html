@@ -1,0 +1,19 @@
+<!-- src/app/features/movies/movie-card/movie-card.component.html -->
+<a class="movie-card" [routerLink]="['/movies', movie.id, 'schedule']" [attr.aria-label]="movie?.title">
+
+  <img [src]="posterUrl" [alt]="movie.title" />
+
+  <div class="info">
+    <h3 class="title">{{ movie.title }}</h3>
+
+    <p class="meta">
+      {{ movie.duration || '' }}
+      <span *ngIf="movie.duration && movie.rating">•</span>
+      {{ movie.rating || '' }}
+    </p>
+
+    <!-- optional injected actions -->
+    <ng-content select="[card-actions]"></ng-content>
+  </div>
+
+</a>

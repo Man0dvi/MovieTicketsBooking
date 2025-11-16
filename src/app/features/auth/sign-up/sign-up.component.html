@@ -1,0 +1,74 @@
+<!-- src/app/features/auth/sign-up/sign-up.component.html -->
+<div class="auth-container">
+  <div class="overlay">
+    <div class="brand-block">
+      <h1 class="brand">Cinemania<br/>Delight</h1>
+    </div>
+
+    <div class="card-wrap">
+      <div class="auth-card">
+        <h2 class="title">SIGN UP</h2>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" novalidate>
+          <label class="field">
+            <span class="label-text">User Name</span>
+            <input type="text" formControlName="username" class="input" />
+          </label>
+          <div class="err" *ngIf="f['username'].touched && f['username'].invalid">Username is required</div>
+
+          <label class="field">
+            <span class="label-text">Phone</span>
+            <input type="tel" formControlName="phone" class="input" />
+          </label>
+          <div class="err" *ngIf="f['phone'].touched && f['phone'].invalid">Phone is required</div>
+
+          <label class="field">
+            <span class="label-text">Email</span>
+            <input type="email" formControlName="email" class="input" />
+          </label>
+          <div class="err" *ngIf="f['email'].touched && f['email'].invalid">
+            <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+            <span *ngIf="f['email'].errors?.['email']">Enter a valid email</span>
+          </div>
+
+          <label class="field">
+            <span class="label-text">Password</span>
+            <div class="pw-row">
+              <input [type]="showPw ? 'text' : 'password'" formControlName="password" class="input" />
+              <button type="button" class="eye" (click)="showPw = !showPw" [attr.aria-pressed]="showPw">{{ showPw ? 'Hide' : 'Show' }}</button>
+            </div>
+          </label>
+          <div class="err" *ngIf="f['password'].touched && f['password'].invalid">
+            <span *ngIf="f['password'].errors?.['passwordStrength'] as ps">Password must contain:
+              <ul>
+                <li *ngIf="ps.indexOf('minLength')>=0">Minimum 8 characters</li>
+                <li *ngIf="ps.indexOf('uppercase')>=0">One uppercase letter</li>
+                <li *ngIf="ps.indexOf('lowercase')>=0">One lowercase letter</li>
+                <li *ngIf="ps.indexOf('number')>=0">One number</li>
+                <li *ngIf="ps.indexOf('special')>=0">One special character</li>
+              </ul>
+            </span>
+          </div>
+
+          <label class="field">
+            <span class="label-text">Confirm Password</span>
+            <div class="pw-row">
+              <input [type]="showPw2 ? 'text' : 'password'" formControlName="confirmPassword" class="input" />
+              <button type="button" class="eye" (click)="showPw2 = !showPw2" [attr.aria-pressed]="showPw2">{{ showPw2 ? 'Hide' : 'Show' }}</button>
+            </div>
+          </label>
+          <div class="err" *ngIf="form.errors?.['mismatch'] && (f['confirmPassword'].touched || f['confirmPassword'].dirty)">Passwords do not match</div>
+
+          <button type="submit" class="signup-btn" [disabled]="form.invalid">SIGN UP</button>
+
+          <div class="actions">
+            <a routerLink="/signin" class="link">Already have an account? Sign In</a>
+          </div>
+        </form>
+
+        <div class="note success" *ngIf="success">{{ success }}</div>
+        <div class="note err" *ngIf="error">{{ error }}</div>
+      </div>
+    </div>
+  </div>
+</div>

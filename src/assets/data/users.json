@@ -1,0 +1,44 @@
+[
+  {
+    "id": 101,
+    "username": "user_alpha",
+    "phone_no": "555-123-4567",
+    "email": "user.alpha@example.com",
+    "password": "AlphaPass!1"
+  },
+  {
+    "id": 102,
+    "username": "beta_user",
+    "phone_no": "555-987-6543",
+    "email": "beta.user@example.com",
+    "password": "BetaSecure$2"
+  },
+  {
+    "id": 103,
+    "username": "charlie_x",
+    "phone_no": "555-111-2222",
+    "email": "charlie.x@example.com",
+    "password": "CharliePwd#3"
+  },
+  {
+    "id": 104,
+    "username": "delta_force",
+    "phone_no": "555-333-4444",
+    "email": "delta.force@example.com",
+    "password": "DeltaPass@4"
+  },
+  {
+    "id": 105,
+    "username": "echo_sierra",
+    "phone_no": "555-555-6666",
+    "email": "echo.sierra@example.com",
+    "password": "EchoSecret%5"
+  },
+  {
+    "id": 106,
+    "username": "foxtrot_99",
+    "phone_no": "555-777-8888",
+    "email": "foxtrot.99@example.com",
+    "password": "FoxtrotKey^6"
+  }
+]

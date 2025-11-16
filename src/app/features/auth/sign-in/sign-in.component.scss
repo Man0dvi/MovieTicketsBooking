@@ -1,0 +1,107 @@
+/* src/app/features/auth/sign-in/sign-in.component.scss */
+
+/* Full screen background */
+.auth-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* remove scrollbars */
+  background: url('/assets/posters/bg-cinema.png') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay to darken image and position content */
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 9, 12, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  box-sizing: border-box;
+}
+
+/* Left brand */
+.brand-block {
+  flex: 1;
+  color: #fff;
+  display:flex;
+  align-items:center;
+}
+.brand {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-left: 1rem;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* Right card */
+.card-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.auth-card {
+  background: #1f1f23;
+  color: #fff;
+  width: 380px;
+  padding: 28px;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+
+/* Title */
+.title {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Form fields */
+.form { display:flex; flex-direction:column; gap:10px; }
+.field { display:block; }
+.label-text { display:block; font-size:0.85rem; color:#bfbfc6; margin-bottom:6px; }
+.input {
+  width:100%;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  outline: none;
+  font-size: 0.95rem;
+  border-radius: 4px;
+}
+
+/* password row */
+.pw-row { display:flex; gap:8px; align-items:center; }
+.eye { background:transparent; border:none; color:#ddd; cursor:pointer; padding:6px; }
+
+/* button */
+.signin-btn {
+  margin-top: 8px;
+  background: #e50914;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.signin-btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+/* misc */
+.err { color: #ffb4b4; font-size:0.85rem; margin-top:4px; }
+.actions { margin-top: 12px; text-align:center; }
+.link { color:#ddd; text-decoration:none; font-size:0.92rem; }
+
+@media (max-width: 900px) {
+  .overlay { flex-direction: column; padding: 20px; align-items:center; justify-content:center; }
+  .brand-block { display:none; } /* hide big left billboard on small screens */
+  .card-wrap { width:100%; }
+  .auth-card { width:100%; max-width:420px; }
+}

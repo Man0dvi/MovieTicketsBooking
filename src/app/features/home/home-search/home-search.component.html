@@ -1,0 +1,78 @@
+<!-- src/app/features/home/home-search.component.html -->
+
+<div class="home-search-shell">
+  <div class="search-row">
+    <label for="movieSearch" class="visually-hidden">Search movies</label>
+    <input id="movieSearch"
+           type="search"
+           [formControl]="searchControl"
+           placeholder="Search movies..."
+           aria-label="Search movies by name" />
+
+    <button *ngIf="searchControl.value" class="clear-btn" (click)="clearSearch()" aria-label="Clear search">
+      ✕
+    </button>
+  </div>
+
+  <!-- Filtered block appears above Now Showing when user types -->
+  <ng-container *ngIf="(searchControl.value || '').trim().length > 0">
+    <section class="filtered-block">
+      <header class="block-header">
+        <h2>Filtered</h2>
+        <div class="meta">{{ (filteredMovies$ ? '(server results)' : '') }} Results: {{ filteredMovies.length }}</div>
+        <!-- Add the same nav/categories UI you use for Now Showing -->
+        <nav class="categories">
+          <!-- example categories; replicate your existing nav -->
+          <button class="cat">All</button>
+          <button class="cat">Action</button>
+          <button class="cat">Drama</button>
+        </nav>
+      </header>
+
+      <div class="movie-grid" *ngIf="filteredMovies.length > 0; else noFiltered">
+        <article class="movie-card" *ngFor="let m of filteredMovies; trackBy: trackById">
+          <a [routerLink]="['/movies', m.id]" [attr.aria-label]="'Open ' + m.title">
+            <div class="poster-wrap">
+              <img [src]="m.poster || 'assets/posters/fallback.png'" [alt]="m.title + ' poster'">
+            </div>
+            <div class="card-info">
+              <div class="title">{{ m.title }}</div>
+              <div class="cat">{{ m.category }}</div>
+            </div>
+          </a>
+        </article>
+      </div>
+
+      <ng-template #noFiltered>
+        <div class="no-results">No movies match your search.</div>
+      </ng-template>
+    </section>
+  </ng-container>
+
+  <!-- Now Showing section (unchanged; below filtered) -->
+  <section class="now-showing">
+    <header class="block-header">
+      <h2>Now Showing</h2>
+      <nav class="categories">
+        <!-- keep the same navigation you already have -->
+        <button class="cat">All</button>
+        <button class="cat">IMAX</button>
+        <button class="cat">2D</button>
+      </nav>
+    </header>
+
+    <div class="movie-grid">
+      <article class="movie-card" *ngFor="let m of movies.filter(x => x.nowShowing); trackBy: trackById">
+        <a [routerLink]="['/movies', m.id]" [attr.aria-label]="'Open ' + m.title">
+          <div class="poster-wrap">
+            <img [src]="m.poster || 'assets/posters/fallback.png'" [alt]="m.title + ' poster'">
+          </div>
+          <div class="card-info">
+            <div class="title">{{ m.title }}</div>
+            <div class="cat">{{ m.category }}</div>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+</div>

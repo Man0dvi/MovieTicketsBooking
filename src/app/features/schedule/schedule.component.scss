@@ -1,0 +1,55 @@
+/* src/app/features/schedule/schedule.component.scss */
+:host { display:block; color:#fff; background: linear-gradient(180deg,#0b0b0f 0%, #0a0a0d 100%); min-height:100vh; }
+
+.schedule-shell { padding: 20px 6%; box-sizing: border-box; }
+.container { max-width:1200px; margin:0 auto; display:flex; gap:20px; align-items:flex-start; }
+
+/* left column */
+.left-col { flex:1 1 60%; }
+.page-title { font-size:1.05rem; margin:0 0 12px 0; color:#fff; }
+
+/* dates */
+.dates-row { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.dates-row button { background:transparent; color:#ddd; border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px; cursor:pointer; }
+.dates-row button.active { background:#e50914; color:#fff; border-color:transparent; }
+
+/* theater card */
+.theaters { display:flex; flex-direction:column; gap:18px; }
+.theater { padding:14px; border-radius:8px; background: rgba(255,255,255,0.02); }
+.theater-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.th-name { font-weight:700; color:#fff; }
+.th-location { color:#cfcfd6; font-size:0.9rem; }
+.th-price { color:#bdbdbd; font-size:0.9rem; }
+
+/* showtype block */
+.showtype-block { margin:8px 0; padding:8px; border-radius:6px; background: rgba(0,0,0,0.15); }
+.type-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.type-name { font-weight:600; color:#fff; }
+.type-price { color:#bdbdbd; font-size:0.9rem; }
+
+.times { display:flex; gap:8px; flex-wrap:wrap; }
+.times button { border:1px solid rgba(255,255,255,0.06); background:transparent; color:#fff; padding:6px 10px; border-radius:6px; cursor:pointer; }
+.times button.sel { background:#e50914; color:#fff; border-color:transparent; }
+
+/* right column */
+.right-col { flex:0 0 360px; display:flex; flex-direction:column; gap:14px; align-items:stretch; }
+
+.poster img { width:100%; border-radius:8px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); display:block; }
+
+.movie-meta { background: rgba(255,255,255,0.02); padding:16px; border-radius:8px; }
+.movie-meta h3 { margin:0 0 8px 0; }
+.meta-row { color:#cfcfd6; font-size:0.9rem; margin-bottom:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.desc { color:#ddd; font-size:0.9rem; margin-bottom:12px; }
+
+.selected-card { margin-top:8px; background:#15151a; padding:12px; border-radius:8px; display:flex; flex-direction:column; gap:10px; }
+.sel-info .theater-name { font-weight:700; }
+.sel-meta { color:#bdbdbd; font-size:0.9rem; }
+.price { font-weight:700; color:#fff; }
+.book-btn { background:#e50914; color:#fff; border:none; padding:10px; border-radius:6px; cursor:pointer; }
+
+/* responsive */
+@media (max-width: 920px) {
+  .container { flex-direction:column; padding: 18px; }
+  .right-col { width:100%; }
+  .left-col { width:100%; }
+}

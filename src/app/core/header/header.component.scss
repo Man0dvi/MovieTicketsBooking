@@ -1,0 +1,10 @@
+.site-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem 2rem;
+  background:#111;
+  color:#fff;
+  .logo a{ color: #fff; text-decoration:none; font-weight:700; }
+  .main-nav a{ color:#fff; margin-left:1rem; text-decoration:none; }
+}

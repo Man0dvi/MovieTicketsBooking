@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Now showing",
+    "movie_ids": [
+      "movie_001",
+      "movie_002",
+      "movie_003",
+      "movie_004",
+      "movie_005",
+      "movie_006"
+    ]
+  },
+  {
+    "name": "Spotlight",
+    "movie_ids": [
+      "movie_003",
+      "movie_001",
+      "movie_006",
+      "movie_007",
+      "movie_004",
+      "movie_005"
+    ]
+  },
+  {
+    "name": "Coming soon",
+    "movie_ids": ["movie_008", "movie_009", "movie_010", "movie_011"]
+  }
+]
