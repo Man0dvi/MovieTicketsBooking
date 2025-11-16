@@ -1,3 +1,4 @@
+// src/app/features/home/home.component.ts
 import { Component, OnInit, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   // store movies in a signal
   private moviesSig = signal<Movie[]>([]);
-  // keep an array copy if other non-reactive code expects it
+  // keep an array copy for non-reactive usage
   allMovies: Movie[] = [];
 
   // query as a signal
@@ -31,10 +32,22 @@ export class HomeComponent implements OnInit {
     return this.moviesSig().filter(m => (m.title || '').toLowerCase().includes(q));
   });
 
-  // debounce timer for smoothing search UX
+  // debounce timer for smoothing
   private debounceTimer: any = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    // effect must be created inside constructor (injection context)
+    effect(() => {
+      // read the signal so effect runs on changes
+      const _q = this.query();
+      if (this.debounceTimer) clearTimeout(this.debounceTimer);
+      // small debounce to reduce immediate UI churn
+      this.debounceTimer = setTimeout(() => {
+        // No explicit action required because filteredMovies is computed.
+        // This timeout only delays updates for UX smoothing.
+      }, 250);
+    });
+  }
 
   get isSearching(): boolean {
     return (this.query() || '').trim().length > 0;
@@ -47,6 +60,7 @@ export class HomeComponent implements OnInit {
         fetch('/assets/data/movie-sections.json'),
         fetch('/assets/data/movies.json')
       ]);
+
       const sectionsJson = await sectionsResp.json();
       const moviesJson = await moviesResp.json();
 
@@ -64,18 +78,6 @@ export class HomeComponent implements OnInit {
         ...s,
         movies: (s.movie_ids || []).map((id: string) => this.moviesById[id]).filter(Boolean)
       })) : [];
-
-      // effect to debounce query updates (keeps computed reactive but delays UI churn)
-      effect(() => {
-        // reading the signal ensures effect runs when query changes
-        const _ = this.query();
-        if (this.debounceTimer) clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => {
-          // nothing to do here because filteredMovies is computed and will update automatically;
-          // keeping debounce purely to delay reactivity (visual smoothing)
-        }, 250);
-      });
-
     } catch (e) {
       console.error('Failed to load home data', e);
       this.allMovies = [];
