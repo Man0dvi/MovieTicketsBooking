@@ -1,78 +1,68 @@
-<!-- src/app/features/home/home-search.component.html -->
+<!-- home.component.html -->
+ <div class="search-wrapper">
+  <input type="search"
+         placeholder="Search movies..."
+         [formControl]="searchControl">
 
-<div class="home-search-shell">
-  <div class="search-row">
-    <label for="movieSearch" class="visually-hidden">Search movies</label>
-    <input id="movieSearch"
-           type="search"
-           [formControl]="searchControl"
-           placeholder="Search movies..."
-           aria-label="Search movies by name" />
+  <button *ngIf="isSearching" (click)="clearSearch()">✕</button>
+</div>
+<!-- Filtered results block -->
+<div *ngIf="isSearching">
+  <h2>Filtered</h2>
 
-    <button *ngIf="searchControl.value" class="clear-btn" (click)="clearSearch()" aria-label="Clear search">
-      ✕
-    </button>
+  <div class="movie-row">
+    <app-movie-card
+      *ngFor="let m of filteredMovies"
+      [movie]="m">
+    </app-movie-card>
   </div>
 
-  <!-- Filtered block appears above Now Showing when user types -->
-  <ng-container *ngIf="(searchControl.value || '').trim().length > 0">
-    <section class="filtered-block">
-      <header class="block-header">
-        <h2>Filtered</h2>
-        <div class="meta">{{ (filteredMovies$ ? '(server results)' : '') }} Results: {{ filteredMovies.length }}</div>
-        <!-- Add the same nav/categories UI you use for Now Showing -->
-        <nav class="categories">
-          <!-- example categories; replicate your existing nav -->
-          <button class="cat">All</button>
-          <button class="cat">Action</button>
-          <button class="cat">Drama</button>
-        </nav>
-      </header>
+  <div *ngIf="filteredMovies.length === 0" class="no-results">
+    No results found.
+  </div>
+</div>
 
-      <div class="movie-grid" *ngIf="filteredMovies.length > 0; else noFiltered">
-        <article class="movie-card" *ngFor="let m of filteredMovies; trackBy: trackById">
-          <a [routerLink]="['/movies', m.id]" [attr.aria-label]="'Open ' + m.title">
-            <div class="poster-wrap">
-              <img [src]="m.poster || 'assets/posters/fallback.png'" [alt]="m.title + ' poster'">
-            </div>
-            <div class="card-info">
-              <div class="title">{{ m.title }}</div>
-              <div class="cat">{{ m.category }}</div>
-            </div>
-          </a>
-        </article>
+<div class="home-shell">
+  <header class="hero">
+    <div class="hero-inner">
+      <h1 class="site-title">Cinemania Delight</h1>
+      <p class="hero-sub">Discover movies now showing & coming soon</p>
+    </div>
+  </header>
+
+  <main class="content">
+    <section *ngFor="let s of sections; let i = index" class="movie-section">
+      <div class="section-header">
+        <h2>{{ s.name }}</h2>
+        <div class="controls">
+          <button (click)="scrollPrev(i)" aria-label="Previous">‹</button>
+          <button (click)="scrollNext(i)" aria-label="Next">›</button>
+        </div>
       </div>
 
-      <ng-template #noFiltered>
-        <div class="no-results">No movies match your search.</div>
-      </ng-template>
+      <div class="row" id="section-row-{{i}}">
+        <ng-container *ngFor="let m of s.movies">
+          <app-movie-card [movie]="m"></app-movie-card>
+        </ng-container>
+      </div>
     </section>
-  </ng-container>
+  </main>
 
-  <!-- Now Showing section (unchanged; below filtered) -->
-  <section class="now-showing">
-    <header class="block-header">
-      <h2>Now Showing</h2>
-      <nav class="categories">
-        <!-- keep the same navigation you already have -->
-        <button class="cat">All</button>
-        <button class="cat">IMAX</button>
-        <button class="cat">2D</button>
-      </nav>
-    </header>
-
-    <div class="movie-grid">
-      <article class="movie-card" *ngFor="let m of movies.filter(x => x.nowShowing); trackBy: trackById">
-        <a [routerLink]="['/movies', m.id]" [attr.aria-label]="'Open ' + m.title">
-          <div class="poster-wrap">
-            <img [src]="m.poster || 'assets/posters/fallback.png'" [alt]="m.title + ' poster'">
-          </div>
-          <div class="card-info">
-            <div class="title">{{ m.title }}</div>
-            <div class="cat">{{ m.category }}</div>
-          </div>
-        </a>
-      </article>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">Cinemania Delight</div>
+      <div class="newsletter">
+        <h4>Join our newsletter</h4>
+        <input placeholder="Your email" />
+      </div>
+      <div class="links">
+        <ul>
+          <li>Menu</li>
+          <li>Theaters</li>
+          <li>IMAX</li>
+          <li>Playcenter</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </footer>
 </div>
