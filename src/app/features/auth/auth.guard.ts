@@ -1,22 +1,24 @@
-// src/app/features/auth/auth.guard.ts
-import { inject } from '@angular/core';
-import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 
-export const authGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  const router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router) {}
 
-  const raw = localStorage.getItem('cinema_auth');
-
-  if (raw) {
-    return true;
+  canActivate(): boolean | UrlTree {
+    const raw = localStorage.getItem('cinema_auth');
+    if (!raw) {
+      // redirect to sign in
+      return this.router.parseUrl('/signin');
+    }
+    try {
+      const user = JSON.parse(raw);
+      if (user && user.id) return true;
+    } catch {
+      // fallthrough
+    }
+    return this.router.parseUrl('/signin');
   }
-
-  router.navigate(['/signin'], {
-    queryParams: { returnUrl: state.url }
-  });
-
-  return false;
-};
+}
