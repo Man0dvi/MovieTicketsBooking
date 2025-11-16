@@ -1,6 +1,8 @@
+// src/app/features/movies/movie-list/movie-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 
 @Component({
@@ -15,7 +17,12 @@ import { MovieCardComponent } from '../movie-card/movie-card.component';
 
       <div class="grid">
         <ng-container *ngIf="filtered.length; else noResult">
-          <app-movie-card *ngFor="let m of filtered" [movie]="m"></app-movie-card>
+          <!-- bind to cardClick and navigate in parent -->
+          <app-movie-card
+            *ngFor="let m of filtered"
+            [movie]="m"
+            (cardClick)="openMovie($event)">
+          </app-movie-card>
         </ng-container>
 
         <ng-template #noResult>
@@ -37,6 +44,8 @@ export class MovieListComponent implements OnInit {
   filtered: any[] = [];
   query = '';
   private moviesUrl = '/assets/data/movies.json';
+
+  constructor(private router: Router) {}
 
   async ngOnInit() {
     try {
@@ -60,5 +69,11 @@ export class MovieListComponent implements OnInit {
       (m.title || '').toLowerCase().includes(q) ||
       (m.genre || []).join(' ').toLowerCase().includes(q)
     );
+  }
+
+  // handle click emitted by child; keep same behavior: go to schedule page
+  openMovie(id: string) {
+    if (!id) return;
+    this.router.navigate(['/movies', id, 'schedule']);
   }
 }
