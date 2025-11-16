@@ -1,25 +1,65 @@
-<!-- src/app/features/payment/payment-success.component.html -->
+<!-- payment-success.component.html -->
 <div class="success-shell">
-  <div class="success-inner">
-    <h1>Payment successful!</h1>
+  <div class="success-inner" role="main" aria-labelledby="success-title">
 
-    <img src="assets/posters/success-illustration.png" alt="success" class="success-illustration" *ngIf="true">
+    <h1 id="success-title">Payment successful!</h1>
 
-    <div *ngIf="tx; else noTx">
-      <p class="muted">Transaction details have been sent to your email. You can also check ticket details in My Tickets.</p>
+    <!-- SVG illustration: film + checkmark -->
+    <div class="success-illustration" aria-hidden="true">
+      <svg viewBox="0 0 160 160" role="img" xmlns="http://www.w3.org/2000/svg" width="160" height="160">
+        <!-- background circle -->
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#f15b6c"/>
+            <stop offset="1" stop-color="#ff9a6b"/>
+          </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="76" fill="url(#g1)" opacity="0.98"/>
+        <!-- film strip (subtle) -->
+        <rect x="22" y="38" width="116" height="28" rx="4" fill="#2b2733" opacity="0.12"/>
+        <rect x="22" y="94" width="116" height="28" rx="4" fill="#2b2733" opacity="0.12"/>
+        <!-- sprocket holes -->
+        <g fill="#fff" opacity="0.14">
+          <rect x="30" y="42" width="6" height="6" rx="1.2"/>
+          <rect x="44" y="42" width="6" height="6" rx="1.2"/>
+          <rect x="108" y="42" width="6" height="6" rx="1.2"/>
+          <rect x="122" y="42" width="6" height="6" rx="1.2"/>
+          <rect x="30" y="98" width="6" height="6" rx="1.2"/>
+          <rect x="44" y="98" width="6" height="6" rx="1.2"/>
+          <rect x="108" y="98" width="6" height="6" rx="1.2"/>
+          <rect x="122" y="98" width="6" height="6" rx="1.2"/>
+        </g>
 
-      <div class="tx-card">
-        <div><strong>Transaction id:</strong> {{ tx.id }}</div>
-        <div><strong>Amount paid:</strong> Rs. {{ tx.amount }}</div>
-        <div><strong>Seats:</strong> {{ tx.booking.seats.join(', ') }}</div>
-      </div>
-
-      <button (click)="explore()" class="explore-btn">Explore Movies</button>
+        <!-- central ticket/strip -->
+        <g transform="translate(40,50)">
+          <rect width="80" height="60" rx="6" fill="#ffffff" opacity="0.06"/>
+          <!-- checkmark circle -->
+          <circle cx="40" cy="30" r="18" fill="#ffffff" opacity="0.12"/>
+          <path d="M33 30.5l4.5 4.5L51 22" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </g>
+      </svg>
     </div>
 
-    <ng-template #noTx>
-      <p>No recent transaction found.</p>
-      <a routerLink="/home" class="explore-link">Explore Movies</a>
-    </ng-template>
+    <div class="content-block">
+      <p class="muted">
+        Transaction details have been sent to your email. You can also check ticket details in <strong>My Tickets</strong>.
+      </p>
+
+      <div class="tx-card" role="group" aria-label="Transaction summary" *ngIf="tx; else noTx">
+        <div class="tx-row"><span class="label">Transaction id</span><span class="value">{{ tx.id }}</span></div>
+        <div class="tx-row"><span class="label">Amount paid</span><span class="value">Rp. {{ tx.amount | number:'1.0-0' }}</span></div>
+        <div class="tx-row"><span class="label">Seats</span><span class="value">{{ (tx.booking?.seats || []).join(', ') || 'N/A' }}</span></div>
+        <div class="tx-row small"><span class="label">Method</span><span class="value">{{ tx.method || 'Simulated' }}</span></div>
+      </div>
+
+      <ng-template #noTx>
+        <div class="no-tx">No recent transaction found.</div>
+      </ng-template>
+
+      <!-- CTA -->
+      <div class="cta-row">
+        <button (click)="explore()" class="explore-btn" aria-label="Explore movies">Explore Movies</button>
+      </div>
+    </div>
   </div>
 </div>
