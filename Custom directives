@@ -1,0 +1,118 @@
+Perfect — minimal and visible. I'll give one tiny standalone directive plus the two smallest edits you need (one import in the component and one attribute in the template). That’s it — one small change proves you implemented a custom directive and has zero risk of breaking other code.
+
+I recommend appAutofocus — it’s extremely small, useful in sign-in, and requires only:
+
+1. add autofocus.directive.ts, and
+
+
+2. add the directive to SignInComponent imports + add appAutofocus attribute to the phone <input>.
+
+
+
+
+---
+
+1) Create this file
+
+Path: src/app/shared/directives/autofocus.directive.ts
+Contents: (copy-paste)
+
+import { Directive, ElementRef, AfterViewInit } from '@angular/core';
+
+@Directive({
+  selector: '[appAutofocus]',
+  standalone: true
+})
+export class AutofocusDirective implements AfterViewInit {
+  constructor(private el: ElementRef<HTMLInputElement | HTMLTextAreaElement>) {}
+
+  ngAfterViewInit(): void {
+    // small timeout so it works reliably in many render/animation scenarios
+    setTimeout(() => {
+      try { this.el.nativeElement.focus(); }
+      catch { /* ignore if element not focusable */ }
+    }, 20);
+  }
+}
+
+
+---
+
+2) Add the directive to the Sign-in component imports
+
+Open your sign-in component TypeScript file (example path: src/app/features/auth/sign-in/sign-in.component.ts) and add the import and include it in the component imports array.
+
+Find the top of the file and add:
+
+import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
+
+(Adjust relative path if your folder structure differs.)
+
+Then in the @Component({ ... }) metadata, update imports: [...] to include AutofocusDirective. Example snippet:
+
+@Component({
+  selector: 'app-sign-in',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, AutofocusDirective],
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
+})
+export class SignInComponent { ... }
+
+> If your component uses inline template: \...`, just ensure you still add AutofocusDirectivetoimports`.
+
+
+
+
+---
+
+3) Add the attribute to the phone input in the template
+
+Open sign-in.component.html (or inline template) and locate the phone input. Change:
+
+<input formControlName="phone" inputmode="tel" />
+
+to:
+
+<input formControlName="phone" inputmode="tel" appAutofocus />
+
+That’s it — one attribute added.
+
+
+---
+
+4) How to test (one command)
+
+Run (or restart) the app and verify autofocus:
+
+ng serve
+
+Open the app (or refresh). On the Sign In page the phone input will be focused automatically. That visible behavior demonstrates the directive working.
+
+
+---
+
+Why this is minimal & safe
+
+Only a single new file added.
+
+One import line added to one component.
+
+One attribute added to one template.
+
+No modules touched, no services changed, no logic refactors.
+
+Standalone directive fits cleanly with your standalone-component architecture.
+
+
+
+---
+
+If you want, I can also:
+
+produce a tiny screenshot or GIF showing the autofocus working, or
+
+provide an alternate one-line directive (like appStopProp) if you prefer to show event-control instead.
+
+
+Which would you like next?
