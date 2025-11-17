@@ -1,118 +1,112 @@
-Perfect — minimal and visible. I'll give one tiny standalone directive plus the two smallest edits you need (one import in the component and one attribute in the template). That’s it — one small change proves you implemented a custom directive and has zero risk of breaking other code.
+Great — minimal, low-risk, visible change. I’ll give you one tiny standalone custom pipe (genreList) and the two smallest edits you need to make to show a custom pipe is implemented:
 
-I recommend appAutofocus — it’s extremely small, useful in sign-in, and requires only:
+add the pipe file
 
-1. add autofocus.directive.ts, and
+import the pipe into MovieCardComponent imports
+
+replace the existing genre text in the movie-card template with the pipe
 
 
-2. add the directive to SignInComponent imports + add appAutofocus attribute to the phone <input>.
-
-
+That’s it — no other files or modules to touch.
 
 
 ---
 
-1) Create this file
+1) Create the pipe file
 
-Path: src/app/shared/directives/autofocus.directive.ts
-Contents: (copy-paste)
+Path: src/app/shared/pipes/genre.pipe.ts
+Contents: (copy-paste exactly)
 
-import { Directive, ElementRef, AfterViewInit } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Directive({
-  selector: '[appAutofocus]',
+@Pipe({
+  name: 'genreList',
   standalone: true
 })
-export class AutofocusDirective implements AfterViewInit {
-  constructor(private el: ElementRef<HTMLInputElement | HTMLTextAreaElement>) {}
-
-  ngAfterViewInit(): void {
-    // small timeout so it works reliably in many render/animation scenarios
-    setTimeout(() => {
-      try { this.el.nativeElement.focus(); }
-      catch { /* ignore if element not focusable */ }
-    }, 20);
+export class GenrePipe implements PipeTransform {
+  transform(genres: string[] | null | undefined): string {
+    if (!Array.isArray(genres) || genres.length === 0) return '';
+    return genres.join(', ');
   }
 }
 
+This is a tiny, safe pipe that converts ["Action","Drama"] → "Action, Drama".
+
 
 ---
 
-2) Add the directive to the Sign-in component imports
+2) Add the pipe to the MovieCard component imports
 
-Open your sign-in component TypeScript file (example path: src/app/features/auth/sign-in/sign-in.component.ts) and add the import and include it in the component imports array.
+Open:
+src/app/features/movies/movie-card/movie-card.component.ts
 
-Find the top of the file and add:
+Add an import at the top (adjust relative path if your folders differ):
 
-import { AutofocusDirective } from '../../../shared/directives/autofocus.directive';
+import { GenrePipe } from '../../../shared/pipes/genre.pipe';
 
-(Adjust relative path if your folder structure differs.)
-
-Then in the @Component({ ... }) metadata, update imports: [...] to include AutofocusDirective. Example snippet:
+Then include the pipe in the imports array of the @Component metadata. Example snippet:
 
 @Component({
-  selector: 'app-sign-in',
+  selector: 'app-movie-card',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, AutofocusDirective],
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  imports: [CommonModule, RouterModule, /* other imports */, GenrePipe],
+  templateUrl: './movie-card.component.html',
+  styleUrls: ['./movie-card.component.scss']
 })
-export class SignInComponent { ... }
+export class MovieCardComponent { ... }
 
-> If your component uses inline template: \...`, just ensure you still add AutofocusDirectivetoimports`.
-
-
+(If your file already imports other pipes/directives, just add GenrePipe to that list.)
 
 
 ---
 
-3) Add the attribute to the phone input in the template
+3) Use the pipe in the movie-card template
 
-Open sign-in.component.html (or inline template) and locate the phone input. Change:
+Open: src/app/features/movies/movie-card/movie-card.component.html
 
-<input formControlName="phone" inputmode="tel" />
+Find where genres are shown (something like {{ movie?.genre?.join(', ') }} or similar). Replace that fragment with:
 
-to:
+<div class="genres" *ngIf="movie?.genre?.length">
+  {{ movie?.genre | genreList }}
+</div>
 
-<input formControlName="phone" inputmode="tel" appAutofocus />
-
-That’s it — one attribute added.
+If there was no explicit genre display before, add the whole block in the info area so it’s visibly present under the title.
 
 
 ---
 
-4) How to test (one command)
+4) Test it
 
-Run (or restart) the app and verify autofocus:
+Run (or reload) your dev server:
 
 ng serve
 
-Open the app (or refresh). On the Sign In page the phone input will be focused automatically. That visible behavior demonstrates the directive working.
+Open the home or movie-list page and confirm each card now shows the genre text formatted by the pipe (e.g., Action, Adventure).
 
 
 ---
 
-Why this is minimal & safe
+Why this is minimal & demonstrative
 
-Only a single new file added.
+Single new file (the pipe).
 
-One import line added to one component.
+One small import addition to an existing standalone component.
 
-One attribute added to one template.
+One-line template change (or small block).
 
-No modules touched, no services changed, no logic refactors.
+No modules, providers, or global changes needed.
 
-Standalone directive fits cleanly with your standalone-component architecture.
+Results are visible on the movie cards so you can demo the custom pipe quickly.
 
 
 
 ---
 
-If you want, I can also:
+If you want I can also:
 
-produce a tiny screenshot or GIF showing the autofocus working, or
+add a second tiny pipe (e.g., runtime to show duration like 122 min → 2h 2m), or
 
-provide an alternate one-line directive (like appStopProp) if you prefer to show event-control instead.
+produce the exact patched movie-card.component.ts + movie-card.component.html files for you to replace.
 
 
-Which would you like next?
+Which would you prefer?
