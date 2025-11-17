@@ -1,0 +1,195 @@
+// variables (you provided these — keep them here)
+$bg-dark: #1a1d2e;
+$bg-card: #2a2d3e;
+$text-white: #ffffff;
+$text-gray: #a0a3bd;
+$border-color: #3a3d4e;
+
+$status-success-bg: rgba(0, 194, 120, 0.08);
+$status-success-text: #00c278;
+$status-failed-bg: rgba(255, 71, 87, 0.08);
+$status-failed-text: #ff4757;
+$status-pending-bg: rgba(255, 168, 0, 0.08);
+$status-pending-text: #ffa800;
+
+.my-tickets-shell {
+  background-color: $bg-dark;
+  color: $text-white;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem 3rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: $text-white;
+  }
+}
+
+.loading,
+.empty {
+  color: $text-gray;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.tickets-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.ticket-card {
+  background-color: $bg-card;
+  border-radius: 12px;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 110px 1fr 90px;
+  gap: 1rem;
+  align-items: start;
+  border: 1px solid $border-color;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* Poster */
+.poster-wrap {
+  width: 110px;
+  height: 150px;
+  flex: 0 0 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* Main content */
+.ticket-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* header: title + status */
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.movie {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: $text-white;
+  line-height: 1.25;
+}
+
+/* status pill */
+.status {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: none;
+  flex-shrink: 0;
+  background-color: $status-pending-bg;
+  color: $status-pending-text;
+  border: 1px solid rgba(255,255,255,0.02);
+  min-width: 68px;
+  text-align: center;
+}
+
+.status.success {
+  background-color: $status-success-bg;
+  color: $status-success-text;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.status.failed {
+  background-color: $status-failed-bg;
+  color: $status-failed-text;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+/* body details */
+.ticket-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: $text-gray;
+  font-size: 0.95rem;
+
+  .muted { color: $text-gray; font-weight: 500; }
+
+  .spacer { height: 6px; }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.7rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed rgba(255,255,255,0.03);
+
+    .price-label { color: $text-white; font-weight: 600; }
+    .price-value { color: $text-white; font-weight: 700; }
+  }
+}
+
+/* footer: booking code */
+.ticket-footer {
+  border-top: 1px solid $border-color;
+  padding-top: 0.8rem;
+  margin-top: 0.6rem;
+
+  small {
+    color: $text-gray;
+    font-size: 0.82rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .code { color: lighten($text-gray, 6%); }
+}
+
+/* right side actions */
+.ticket-side {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+.view-btn {
+  background: transparent;
+  color: $text-white;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s ease, transform 0.12s ease;
+}
+.view-btn:hover {
+  background: rgba(255,255,255,0.02);
+  transform: translateY(-2px);
+}
+
+/* responsive */
+@media (max-width: 680px) {
+  .ticket-card { grid-template-columns: 84px 1fr; grid-auto-rows: auto; }
+  .ticket-side { display: none; }
+  .poster-wrap { width: 84px; height: 114px; }
+}

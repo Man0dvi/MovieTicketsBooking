@@ -9,11 +9,30 @@
     <section class="left">
       <h3>Schedule Details</h3>
       <div class="details">
-        <div class="line"><span class="label">Movie:</span> <span class="value">{{ booking.movieTitle || booking.movieId }}</span></div>
-        <div class="line"><span class="label">Date:</span> <span class="value">{{ booking.date || (booking.createdAt | slice:0:10) }}</span></div>
-        <div class="line"><span class="label">Time:</span> <span class="value">{{ booking.time || '--:--' }}</span></div>
-        <div class="line"><span class="label">Theater:</span> <span class="value">{{ booking.theaterName || '—' }}</span></div>
-        <div class="line"><span class="label">Tickets:</span> <span class="value">{{ booking.seats.join(', ') || 'None' }}</span></div>
+        <div class="line">
+          <span class="label">Movie:</span>
+          <span class="value">{{ booking?.movieTitle || booking?.movieId }}</span>
+        </div>
+
+        <div class="line">
+          <span class="label">Date:</span>
+          <span class="value">{{ booking?.date || (booking?.createdAt | slice:0:10) }}</span>
+        </div>
+
+        <div class="line">
+          <span class="label">Time:</span>
+          <span class="value">{{ booking?.time || '--:--' }}</span>
+        </div>
+
+        <div class="line">
+          <span class="label">Theater:</span>
+          <span class="value">{{ booking?.location || '—' }}</span>
+        </div>
+
+        <div class="line">
+          <span class="label">Tickets:</span>
+          <span class="value">{{ seatsList() }}</span>
+        </div>
       </div>
 
       <button class="back-link" (click)="goBack()" [attr.aria-label]="'Back to seat selection'">← Back</button>
@@ -23,14 +42,24 @@
       <div class="order-card" role="region" aria-describedby="order-desc">
         <h4 id="order-summary-heading">Order Summary</h4>
 
-        <div class="row"><span>Regular seat</span><span>Rs. {{ seatPrice }} × {{ booking.seats.length }}</span></div>
-        <div class="row"><span>Service fees</span><span>Rs. {{ serviceFee }} × {{ booking.seats.length }}</span></div>
+        <div class="row">
+          <span>Regular seat</span>
+          <span>Rs. {{ seatPrice }} × {{ seatsCount() }}</span>
+        </div>
+
+        <div class="row">
+          <span>Service fees</span>
+          <span>Rs. {{ serviceFee }} × {{ seatsCount() }}</span>
+        </div>
 
         <div class="promo" *ngIf="promo">Promo & Voucher</div>
 
         <hr/>
 
-        <div class="row total"><strong>Total Pay</strong><strong>Rs. {{ formattedTotal }}</strong></div>
+        <div class="row total">
+          <strong>Total Pay</strong>
+          <strong>Rs. {{ formattedTotal }}</strong>
+        </div>
 
         <div class="payment-method">
           <label>Payment method</label>
@@ -39,8 +68,8 @@
 
         <button class="buy-btn"
                 (click)="buyTickets()"
-                [disabled]="booking.seats.length===0"
-                [attr.aria-label]="'Buy tickets for ' + (booking.seats.join(', ') || 'no seats')">
+                [disabled]="seatsCount() === 0"
+                [attr.aria-label]="'Buy tickets for ' + seatsForAria()">
           BUY TICKETS
         </button>
       </div>

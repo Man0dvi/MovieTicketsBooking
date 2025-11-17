@@ -4,34 +4,48 @@
     <div class="brand-block">
       <h1 class="brand">Cinemania<br/>Delight</h1>
     </div>
-
     <div class="card-wrap">
       <div class="auth-card">
         <h2 class="title">SIGN IN</h2>
-
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+        <!-- Notice: use #f="ngForm" and [(ngModel)] -->
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form">
           <label class="field">
             <span class="label-text">Enter Phone Number</span>
-            <input type="tel" formControlName="phone" class="input" />
+            <input 
+              type="tel" 
+              name="phone" 
+              class="input" 
+              appAutofocus
+              [(ngModel)]="phone"
+              required
+              #phoneCtrl="ngModel"
+              [class.invalid]="phoneCtrl.invalid && (phoneCtrl.touched || phoneCtrl.dirty)"
+            />
           </label>
-          <div class="err" *ngIf="f['phone'].touched && f['phone'].invalid">Phone is required</div>
+          <div class="err" *ngIf="phoneCtrl.invalid && (phoneCtrl.touched || phoneCtrl.dirty)">Phone is required</div>
 
           <label class="field">
             <span class="label-text">Password</span>
             <div class="pw-row">
-              <input [type]="showPw ? 'text' : 'password'" formControlName="password" class="input" />
+              <input 
+                [type]="showPw ? 'text' : 'password'" 
+                name="password" 
+                class="input" 
+                [(ngModel)]="password"
+                required
+                #pwCtrl="ngModel"
+                [class.invalid]="pwCtrl.invalid && (pwCtrl.touched || pwCtrl.dirty)"
+              />
               <button type="button" class="eye" (click)="showPw = !showPw" [attr.aria-pressed]="showPw">{{ showPw ? 'Hide' : 'Show' }}</button>
             </div>
           </label>
-          <div class="err" *ngIf="f['password'].touched && f['password'].invalid">Password is required</div>
+          <div class="err" *ngIf="pwCtrl.invalid && (pwCtrl.touched || pwCtrl.dirty)">Password is required</div>
 
-          <button type="submit" class="signin-btn" [disabled]="form.invalid">SIGN IN</button>
-
+          <button type="submit" class="signin-btn" [disabled]="f.invalid">SIGN IN</button>
           <div class="actions">
             <a routerLink="/signup" class="link">New user? Sign Up</a>
           </div>
         </form>
-
         <div class="note err" *ngIf="error">{{ error }}</div>
       </div>
     </div>

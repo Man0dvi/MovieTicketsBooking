@@ -1,0 +1,77 @@
+<section class="my-tickets-shell">
+  <h1>My Tickets</h1>
+
+  <div *ngIf="loading" class="loading">Loading your tickets…</div>
+
+  <ng-container *ngIf="!loading">
+    <ng-container *ngIf="(tickets$ | async) as tickets">
+      <div *ngIf="tickets.length === 0" class="empty">
+        You have no tickets yet.
+      </div>
+
+      <div class="tickets-list">
+        <article class="ticket-card" *ngFor="let t of tickets">
+          <!-- Left: poster -->
+          <div class="poster-wrap">
+            <img
+              class="poster"
+              [src]="posterFor(t)"
+              (error)="onImgError($event)"
+              [alt]="t.movie?.title || t.movieTitle || 'Movie poster'"
+              width="110" height="150"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Center: details -->
+          <div class="ticket-main">
+            <header class="ticket-header">
+              <div class="movie">{{ t.movie?.title || t.movieTitle || t.movieId }}</div>
+
+              <!-- Status badge -->
+              <div
+                class="status"
+                [ngClass]="{
+                  'success': (t.status || '').toLowerCase() === 'success',
+                  'failed' : (t.status || '').toLowerCase() === 'failed',
+                  'pending': (t.status || '').toLowerCase() === 'pending'
+                }"
+                aria-live="polite"
+              >
+                {{ t.status || 'Pending' }}
+              </div>
+            </header>
+
+            <div class="ticket-body">
+              <div><strong>Seats:</strong> <span class="muted">{{ (t.seats || []).join(', ') || 'N/A' }}</span></div>
+              <div><strong>When:</strong> <span class="muted">{{ t.date }} {{ t.time }}</span></div>
+              <div><strong>Place:</strong> <span class="muted">{{ t.location || '—' }}</span></div>
+              <div class="spacer"></div>
+              <div class="price-row">
+                <div class="price-label">Total</div>
+                <div class="price-value">Rp. {{ t.totalPayment | number:'1.0-0' }}</div>
+              </div>
+            </div>
+
+            <div class="ticket-footer">
+              <small>Booking code: <span class="code">{{ t.bookingCode }}</span></small>
+            </div>
+          </div>
+
+          <!-- Right: optional actions or status -->
+          <div class="ticket-side">
+            <!-- keep space for an action button if needed -->
+            <button
+              class="view-btn"
+              [routerLink]="['/payment-confirmation']"
+              [queryParams]="{ ticketId: t.id }"
+              aria-label="View transaction details"
+            >
+              View
+            </button>
+          </div>
+        </article>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

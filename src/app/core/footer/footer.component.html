@@ -1,4 +1,15 @@
 <footer class="site-footer">
   <div>© {{ year }} Cinema Delight</div>
   <small>Built with Angular • Demo</small>
+
+  <!-- Show My Tickets only when user is logged in -->
+  <ng-container *ngIf="currentUser$ | async as user; else noLink">
+    <!-- Prefer routerLink, but also call goToMyTickets() as a robust fallback -->
+    <a routerLink="/my-tickets" class="footer-link" (click)="goToMyTickets($event)">My Tickets</a>
+  </ng-container>
+
+  <ng-template #noLink>
+    <!-- Optionally show sign-in link instead -->
+    <a routerLink="/signin" class="footer-link">Sign In</a>
+  </ng-template>
 </footer>

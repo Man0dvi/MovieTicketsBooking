@@ -1,0 +1,653 @@
+{
+  "categories": [
+    {
+      "name": "Now showing",
+      "movie_ids": [
+        "movie_001",
+        "movie_002",
+        "movie_003",
+        "movie_004",
+        "movie_005",
+        "movie_006"
+      ],
+      "id": "3679"
+    },
+    {
+      "name": "Spotlight",
+      "movie_ids": [
+        "movie_003",
+        "movie_001",
+        "movie_006",
+        "movie_007",
+        "movie_004",
+        "movie_005"
+      ],
+      "id": "a808"
+    },
+    {
+      "name": "Coming soon",
+      "movie_ids": [
+        "movie_008",
+        "movie_009",
+        "movie_010",
+        "movie_011"
+      ],
+      "id": "8543"
+    }
+  ],
+  "movies": [
+    {
+      "id": "movie_001",
+      "title": "The Batman (2022)",
+      "image": "the_batman_2022_placeholder_image",
+      "poster": "/assets/posters/movie_001.png",
+      "rating": "8.0/10",
+      "duration": "176 min",
+      "certification": "PG-13",
+      "director": "Matt Reeves",
+      "genre": [
+        "Action",
+        "Crime",
+        "Drama"
+      ]
+    },
+    {
+      "id": "movie_002",
+      "title": "Spiderman : No Way Home",
+      "image": "spiderman_no_way_home_placeholder_image",
+      "poster": "C:/Users/mandv/Downloads/cinemadelight/src/assets/posters/movie_002.png",
+      "rating": "8.7/10",
+      "duration": "112 min",
+      "certification": "PG",
+      "director": "Jon Watts",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Sci-Fi"
+      ]
+    },
+    {
+      "id": "movie_003",
+      "title": "Doctor Strange in the Multiverse of Madness",
+      "image": "doctor_strange_multiverse_of_madness_placeholder_image",
+      "poster": "/assets/posters/movie_003.png",
+      "rating": "7.5/10",
+      "duration": "126 min",
+      "certification": "PG-13",
+      "director": "Sam Raimi",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Fantasy"
+      ]
+    },
+    {
+      "id": "movie_004",
+      "title": "The Northman",
+      "image": "the_northman_placeholder_image",
+      "poster": "/assets/posters/movie_004.png",
+      "rating": "7.4/10",
+      "duration": "137 min",
+      "certification": "R",
+      "director": "Robert Eggers",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Drama"
+      ]
+    },
+    {
+      "id": "movie_005",
+      "title": "Uncharted",
+      "image": "uncharted_placeholder_image",
+      "poster": "/assets/posters/movie_005.png",
+      "rating": "7.2/10",
+      "duration": "116 min",
+      "certification": "PG-13",
+      "director": "Ruben Fleischer",
+      "genre": [
+        "Action",
+        "Adventure"
+      ]
+    },
+    {
+      "id": "movie_006",
+      "title": "Sonic the Hedgehog 2",
+      "image": "sonic_the_hedgehog_2_placeholder_image",
+      "poster": "/assets/posters/movie_006.png",
+      "rating": "7.7/10",
+      "duration": "122 min",
+      "certification": "PG",
+      "director": "Jeff Fowler",
+      "genre": [
+        "Animation",
+        "Action",
+        "Adventure"
+      ]
+    },
+    {
+      "id": "movie_007",
+      "title": "The Lost City",
+      "image": "the_lost_city_placeholder_image",
+      "poster": "/assets/posters/movie_007.png",
+      "rating": "6.7/10",
+      "duration": "112 min",
+      "certification": "PG-13",
+      "director": "Aaron Nee, Adam Nee",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Comedy"
+      ]
+    },
+    {
+      "id": "movie_008",
+      "title": "Firestarter",
+      "image": "firestarter_placeholder_image",
+      "poster": "/assets/posters/movie_008.png",
+      "release_date": "12 May 2022",
+      "duration": "94 min",
+      "certification": "R",
+      "director": "Keith Thomas",
+      "genre": [
+        "Horror",
+        "Sci-Fi",
+        "Thriller"
+      ]
+    },
+    {
+      "id": "movie_009",
+      "title": "Jurassic World Dominion",
+      "image": "jurassic_world_dominion_placeholder_image",
+      "poster": "/assets/posters/movie_009.png",
+      "release_date": "10 June 2022",
+      "duration": "146 min",
+      "certification": "PG-13",
+      "director": "Colin Trevorrow",
+      "genre": [
+        "Action",
+        "Adventure",
+        "Sci-Fi"
+      ]
+    },
+    {
+      "id": "movie_010",
+      "title": "Top Gun 2: Maverick",
+      "image": "top_gun_2_maverick_placeholder_image",
+      "poster": "/assets/posters/movie_010.png",
+      "release_date": "27 May 2022",
+      "duration": "137 min",
+      "certification": "PG-13",
+      "director": "Joseph Kosinski",
+      "genre": [
+        "Action",
+        "Drama"
+      ]
+    },
+    {
+      "id": "movie_011",
+      "title": "Minions: The Rise of Gru",
+      "image": "minions_the_rise_of_gru_placeholder_image",
+      "poster": "/assets/posters/movie_011.png",
+      "release_date": "01 July 2022",
+      "duration": "182 min",
+      "certification": "G",
+      "director": "Kyle Balda, Brad Ableson, Jonathan del Val",
+      "genre": [
+        "Animation",
+        "Adventure",
+        "Comedy"
+      ]
+    }
+  ],
+  "cinemas": [
+    {
+      "id": "101",
+      "name": "GRAND INDONESIA CGV",
+      "location": "Jakarta",
+      "logo": "cgv_logo",
+      "showtimes": [
+        {
+          "id": 1011,
+          "type": "REGULAR 2D",
+          "price_min": 45000,
+          "price_max": 50000,
+          "times": [
+            "11:00",
+            "13:45",
+            "14:40",
+            "15:40",
+            "17:15",
+            "18:15",
+            "20:00",
+            "21:00"
+          ]
+        },
+        {
+          "id": 1012,
+          "type": "GOLD CLASS 2D",
+          "price": 100000,
+          "times": [
+            "12:40",
+            "15:40",
+            "18:35",
+            "17:10"
+          ]
+        },
+        {
+          "id": 1013,
+          "type": "VELVET 2D",
+          "price": 100000,
+          "times": [
+            "12:15",
+            "13:45",
+            "14:50"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "102",
+      "name": "MANGGA DUA SQUARE CINÉPOLIS",
+      "location": "Jakarta",
+      "logo": "cinepolis_logo",
+      "showtimes": [
+        {
+          "id": 1021,
+          "type": "2D",
+          "price": 30000,
+          "times": [
+            "13:45",
+            "17:15",
+            "20:00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "103",
+      "name": "PLAZA INDONESIA XXI",
+      "location": "Jakarta",
+      "logo": "xxi_logo",
+      "showtimes": [
+        {
+          "id": 1031,
+          "type": "2D",
+          "price": 50000,
+          "times": [
+            "12:10",
+            "16:45",
+            "19:45"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "104",
+      "name": "STUDIO XXI BANDUNG",
+      "location": "Bandung",
+      "logo": "xxi_logo",
+      "showtimes": [
+        {
+          "id": 1041,
+          "type": "REGULAR 2D",
+          "price_min": 35000,
+          "price_max": 40000,
+          "times": [
+            "10:30",
+            "13:00",
+            "15:30",
+            "18:00",
+            "20:30"
+          ]
+        },
+        {
+          "id": 1042,
+          "type": "DELUXE 2D",
+          "price": 75000,
+          "times": [
+            "11:45",
+            "14:15",
+            "16:45",
+            "19:15"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "105",
+      "name": "EMPIRE CINEMAS SURABAYA",
+      "location": "Surabaya",
+      "logo": "empire_cinemas_logo",
+      "showtimes": [
+        {
+          "id": 1051,
+          "type": "STANDARD",
+          "price": 40000,
+          "times": [
+            "11:00",
+            "13:30",
+            "16:00",
+            "18:30",
+            "21:00"
+          ]
+        },
+        {
+          "id": 1052,
+          "type": "PREMIUM",
+          "price": 90000,
+          "times": [
+            "12:00",
+            "14:30",
+            "17:00",
+            "19:30"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "106",
+      "name": "FLIX CINEMAS BALI",
+      "location": "Denpasar",
+      "logo": "flix_cinemas_logo",
+      "showtimes": [
+        {
+          "id": 1061,
+          "type": "REGULAR 2D",
+          "price_min": 50000,
+          "price_max": 55000,
+          "times": [
+            "10:00",
+            "12:30",
+            "15:00",
+            "17:30",
+            "20:00",
+            "22:30"
+          ]
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "101",
+      "username": "user_alpha",
+      "phone_no": "555-123-4567",
+      "email": "user.alpha@example.com",
+      "password": "AlphaPass!1"
+    },
+    {
+      "id": "102",
+      "username": "beta_user",
+      "phone_no": "555-987-6543",
+      "email": "beta.user@example.com",
+      "password": "BetaSecure$2"
+    },
+    {
+      "id": "103",
+      "username": "charlie_x",
+      "phone_no": "555-111-2222",
+      "email": "charlie.x@example.com",
+      "password": "CharliePwd#3"
+    },
+    {
+      "id": "104",
+      "username": "delta_force",
+      "phone_no": "555-333-4444",
+      "email": "delta.force@example.com",
+      "password": "DeltaPass@4"
+    },
+    {
+      "id": "105",
+      "username": "echo_sierra",
+      "phone_no": "555-555-6666",
+      "email": "echo.sierra@example.com",
+      "password": "EchoSecret%5"
+    },
+    {
+      "id": "106",
+      "username": "foxtrot_99",
+      "phone_no": "555-777-8888",
+      "email": "foxtrot.99@example.com",
+      "password": "FoxtrotKey^6"
+    },
+    {
+      "id": "f685",
+      "username": "abc",
+      "phone_no": "1234567890",
+      "email": "abc@gmail.com",
+      "password": "Mandvi20!"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "1",
+      "userId": 1,
+      "movieId": "m1",
+      "movieTitle": "Spiderman: No Way Home",
+      "location": "Grand Indonesia CGV",
+      "class": "Regular 2D",
+      "date": "2025-12-16",
+      "time": "14:40",
+      "studio": "Studio 1",
+      "bookingCode": "037491740184392",
+      "passwordKey": "147294",
+      "seats": [
+        "C8",
+        "C9",
+        "C10"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 70
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 3
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 129,
+      "status": "Success",
+      "createdAt": "2025-11-17T22:00:00.000Z"
+    },
+    {
+      "id": "87dd",
+      "userId": "f685",
+      "movieId": "movie_003",
+      "movieTitle": "Doctor Strange in the Multiverse of Madness",
+      "location": "STUDIO XXI BANDUNG",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "19:15",
+      "bookingCode": "941968343078089",
+      "passwordKey": "870348",
+      "seats": [
+        "G9"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 75000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 76000,
+      "status": "Success",
+      "createdAt": "2025-11-17T20:29:06.987Z"
+    },
+    {
+      "id": "fe8d",
+      "userId": "f685",
+      "movieId": "movie_003",
+      "movieTitle": "Doctor Strange in the Multiverse of Madness",
+      "location": "STUDIO XXI BANDUNG",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "19:15",
+      "bookingCode": "463344828378232",
+      "passwordKey": "495232",
+      "seats": [
+        "G9"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 75000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 76000,
+      "status": "Success",
+      "createdAt": "2025-11-17T20:29:24.400Z"
+    },
+    {
+      "id": "1b6e",
+      "userId": "f685",
+      "movieId": "movie_003",
+      "movieTitle": "Doctor Strange in the Multiverse of Madness",
+      "location": "GRAND INDONESIA CGV",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "14:40",
+      "bookingCode": "405544527595858",
+      "passwordKey": "232888",
+      "seats": [
+        "H8"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 45000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 46000,
+      "status": "Pending",
+      "createdAt": "2025-11-17T20:51:19.070Z"
+    },
+    {
+      "id": "d036",
+      "userId": "f685",
+      "movieId": "movie_003",
+      "movieTitle": "Doctor Strange in the Multiverse of Madness",
+      "location": "MANGGA DUA SQUARE CINÉPOLIS",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "20:00",
+      "bookingCode": "263909528314115",
+      "passwordKey": "383065",
+      "seats": [
+        "H7"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 30000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 31000,
+      "status": "Success",
+      "createdAt": "2025-11-17T20:56:50.267Z"
+    },
+    {
+      "id": "470e",
+      "userId": "f685",
+      "movieId": "movie_005",
+      "movieTitle": "Uncharted",
+      "location": "MANGGA DUA SQUARE CINÉPOLIS",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "20:00",
+      "bookingCode": "572707425029903",
+      "passwordKey": "217135",
+      "seats": [
+        "H9"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 30000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 31000,
+      "status": "Success",
+      "createdAt": "2025-11-17T21:33:52.650Z"
+    },
+    {
+      "id": "a959",
+      "userId": "f685",
+      "movieId": "movie_003",
+      "movieTitle": "Doctor Strange in the Multiverse of Madness",
+      "location": "STUDIO XXI BANDUNG",
+      "class": "Regular 2D",
+      "date": "2025-11-17",
+      "time": "18:00",
+      "bookingCode": "880429891209170",
+      "passwordKey": "725341",
+      "seats": [
+        "H10"
+      ],
+      "purchaseDetails": [
+        {
+          "label": "REGULAR SEAT",
+          "amount": 35000
+        },
+        {
+          "label": "SERVICE FEES",
+          "amount": 1000
+        }
+      ],
+      "promoCode": null,
+      "totalPayment": 36000,
+      "status": "Success",
+      "createdAt": "2025-11-17T21:42:32.166Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "062b",
+      "bookingId": "d036",
+      "amount": 53,
+      "method": "Simulated",
+      "createdAt": "2025-11-17T20:56:52.443Z"
+    },
+    {
+      "id": "5f15",
+      "bookingId": "470e",
+      "amount": 53,
+      "method": "Simulated",
+      "createdAt": "2025-11-17T21:33:54.811Z"
+    },
+    {
+      "id": "4667",
+      "bookingId": "a959",
+      "amount": 53,
+      "method": "Simulated",
+      "createdAt": "2025-11-17T21:42:37.813Z"
+    }
+  ]
+}

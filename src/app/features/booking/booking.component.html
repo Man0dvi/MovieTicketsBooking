@@ -1,4 +1,4 @@
-<!-- booking.component.html -->
+<!-- src/app/features/booking/booking.component.html -->
 <div class="booking-shell" *ngIf="booking.movieId; else noMovie">
   <header class="booking-header">
     <div class="title-block">
@@ -22,31 +22,37 @@
     <div class="screen">Cinema Screen Here</div>
 
     <div class="seats-grid">
-      <!-- render rows with a center aisle between col 5 and 6 -->
+      <!-- render rows with a center aisle between col 5 and col 6 -->
       <div class="seat-row" *ngFor="let r of rows">
+
+        <!-- LEFT BLOCK (cols 1..5) -->
         <div class="seat-block">
-          <button *ngFor="let c of cols.slice(5)"
-                  (click)="selectSeat(r + c)"
-                  [class.taken]="isTaken(r + c)"
-                  [class.selected]="isSelected(r + c)"
-                  [disabled]="isTaken(r + c)"
-                  [attr.aria-label]="'seat ' + (r + c)">
+          <button
+            *ngFor="let c of cols.slice(0, 5)"
+            (click)="selectSeat(r + c)"
+            [class.taken]="isTaken(r + c)"
+            [class.selected]="isSelected(r + c)"
+            [disabled]="isTaken(r + c) || isSaving"
+            [attr.aria-label]="'seat ' + (r + c)"
+          >
             {{ r + c }}
           </button>
-
         </div>
 
         <div class="aisle"></div>
 
+        <!-- RIGHT BLOCK (cols 6..10) -->
         <div class="seat-block">
-          <button *ngFor="let c of cols.slice(5)"
-              (click)="selectSeat(r + c)"
-              [class.taken]="isTaken(r + c)"
-              [class.selected]="isSelected(r + c)"
-              [disabled]="isTaken(r + c)"
-              [attr.aria-label]="'seat ' + (r + c)">
-        {{ r + c }}
-      </button>
+          <button
+            *ngFor="let c of cols.slice(5)"
+            (click)="selectSeat(r + c)"
+            [class.taken]="isTaken(r + c)"
+            [class.selected]="isSelected(r + c)"
+            [disabled]="isTaken(r + c) || isSaving"
+            [attr.aria-label]="'seat ' + (r + c)"
+          >
+            {{ r + c }}
+          </button>
         </div>
       </div>
     </div>
@@ -65,10 +71,14 @@
         <div class="seats-list">{{ booking.seats.join(', ') || 'None' }}</div>
       </div>
       <div class="right">
-        <button class="btn-return" (click)="clearSelection()">RETURN</button>
-        <button class="btn-confirm" (click)="confirmBooking()" [disabled]="booking.seats.length===0">CONFIRM</button>
+        <button class="btn-return" (click)="clearSelection()" [disabled]="isSaving">RETURN</button>
+        <button class="btn-confirm" (click)="confirmBooking()" [disabled]="booking.seats.length===0 || isSaving">
+          {{ isSaving ? 'Booking...' : 'CONFIRM' }}
+        </button>
       </div>
     </div>
+
+    <div class="save-error" *ngIf="saveError">{{ saveError }}</div>
   </div>
 </div>
 

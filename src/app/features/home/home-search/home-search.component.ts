@@ -1,95 +1,105 @@
+// src/app/features/home/home-search.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieCardComponent } from '../movies/movie-card/movie-card.component';
 import { RouterModule } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { GenrePipe } from '../../../shared/pipes/genre.pipe';
+import { of } from 'rxjs';
 
-type Movie = any;
-type Section = { name: string; movie_ids: string[]; movies?: Movie[] };
+type Genre = string;
 
+export interface Movie {
+  id: string;
+  title: string;
+  image?: string;
+  rating?: string;
+  duration?: string;
+  certification?: string;
+  director?: string;
+  genre?: Genre[];
+  release_date?: string;
+  // optional runtime field
+  nowShowing?: boolean;
+}
+
+const MOVIES_JSON_URL = '/assets/data/movies.json';
 @Component({
-  selector: 'app-home',
+  selector: 'app-home-search',
   standalone: true,
-  imports: [CommonModule, RouterModule, MovieCardComponent, ReactiveFormsModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, HttpClientModule, GenrePipe],
+  templateUrl: './home-search.component.html',
+  styleUrls: ['./home-search.component.scss']
 })
-export class HomeComponent implements OnInit {
-
-  sections: Section[] = [];
-  moviesById: Record<string, Movie> = {};
-  allMovies: Movie[] = [];
-
-  // 🔎 search control
+export class HomeSearchComponent implements OnInit {
+  // non-nullable FormControl so valueChanges emits string (no null)
   searchControl = new FormControl('', { nonNullable: true });
 
-  // results for the Filtered section
+  // full movie list loaded from assets
+  movies: Movie[] = [];
+
+  // filtered results shown in "Filtered" block
   filteredMovies: Movie[] = [];
 
-  get isSearching(): boolean {
-    return this.searchControl.value.trim().length > 0;
+  // convenience getter for now-showing slice
+  get nowShowingMovies(): Movie[] {
+    return this.movies.filter(m => m.nowShowing);
   }
 
-  async ngOnInit() {
-    // load JSON files
-    const [sectionsResp, moviesResp] = await Promise.all([
-      fetch('/assets/data/movie-sections.json'),
-      fetch('/assets/data/movies.json')
-    ]);
+  constructor(private http: HttpClient) {}
 
-    const sectionsJson = await sectionsResp.json();
-    const moviesJson = await moviesResp.json();
+  ngOnInit(): void {
+    // load movies from assets (local JSON)
+    this.http.get<Movie[]>(MOVIES_JSON_URL).subscribe({
+      next: (data) => {
+        // Defensive: ensure array and types
+        if (!Array.isArray(data)) {
+          this.movies = [];
+          return;
+        }
 
-    this.allMovies = moviesJson;
+        // assign and coerce: if there is no nowShowing flag in JSON,
+        // mark first N items as now showing (customize N as needed)
+        const defaultNowShowingCount = 6;
+        this.movies = data.map((m, idx) => ({
+          ...m,
+          nowShowing: typeof m.nowShowing === 'boolean' ? m.nowShowing : idx < defaultNowShowingCount
+        }));
+      },
+      error: (err) => {
+        console.error('Failed to load movies JSON', err);
+        this.movies = [];
+      }
+    });
 
-    // build movie lookup map
-    for (const m of moviesJson) this.moviesById[m.id] = m;
-
-    // attach movies to each section
-    this.sections = sectionsJson.map((s: any) => ({
-      ...s,
-      movies: s.movie_ids.map((id: string) => this.moviesById[id]).filter(Boolean)
-    }));
-
-    // enable search logic
-    this.initSearch();
-  }
-
-  initSearch() {
+    // wire up search with proper typing and ordering:
+    // map -> debounce -> distinctUntilChanged so types remain string
     this.searchControl.valueChanges.pipe(
-      map(v => v.trim()),
+      map(v => (v || '').trim()), // coerce to string, remove whitespace
       debounceTime(250),
       distinctUntilChanged()
     ).subscribe(query => {
       if (!query) {
+        // clear filtered block when empty
         this.filteredMovies = [];
         return;
       }
-
-      const q = query.toLowerCase();
-
-      // Filter across ALL MOVIES (recommended)
-      this.filteredMovies = this.allMovies.filter(m =>
-        m.title?.toLowerCase().includes(q)
-      );
+      this.filteredMovies = this.filterMoviesClient(query);
     });
   }
 
-  clearSearch() {
+  private filterMoviesClient(query: string): Movie[] {
+    const q = query.toLowerCase();
+    // Filter across title (you can add director/genre as well)
+    return this.movies.filter(m => (m.title || '').toLowerCase().includes(q));
+  }
+
+  clearSearch(): void {
     this.searchControl.setValue('');
   }
 
-  // existing scroll helpers
-  scrollNext(sectionIndex: number) {
-    const el = document.querySelector(`#section-row-${sectionIndex}`) as HTMLElement | null;
-    if (!el) return;
-    el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' });
-  }
-
-  scrollPrev(sectionIndex: number) {
-    const el = document.querySelector(`#section-row-${sectionIndex}`) as HTMLElement | null;
-    if (!el) return;
-    el.scrollBy({ left: -el.clientWidth * 0.8, behavior: 'smooth' });
+  trackById(index: number, movie: Movie): string {
+    return movie.id;
   }
 }

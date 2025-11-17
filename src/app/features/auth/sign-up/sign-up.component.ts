@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 function passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
   const v = control.value as string;
@@ -31,8 +32,9 @@ export class SignUpComponent {
   showPw2 = false;
   success = '';
   error = '';
+  isLoading = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.fb.group({
       username: ['', Validators.required],
       phone: ['', Validators.required],
@@ -53,29 +55,30 @@ export class SignUpComponent {
   onSubmit() {
     this.error = '';
     this.success = '';
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
 
-    const usersRaw = localStorage.getItem('cinema_users');
-    const users = usersRaw ? JSON.parse(usersRaw) as any[] : [];
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     const { username, email, phone, password } = this.form.value;
 
-    // check existing by email or phone
-    if (users.some(u => u.email === email)) {
-      this.error = 'Email already registered';
-      return;
-    }
-    if (users.some(u => u.phone === phone)) {
-      this.error = 'Phone number already registered';
-      return;
-    }
-
-    users.push({ id: Date.now().toString(), username, email, phone, password });
-    localStorage.setItem('cinema_users', JSON.stringify(users));
-    this.success = 'Registration successful. Redirecting to Sign In...';
-
-    setTimeout(() => {
-      this.router.navigate(['/signin']);
-    }, 900);
+    // Use AuthService to register user on json-server
+    this.isLoading = true;
+    this.authService.signUp({ username, email, phone, password }).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        // AuthService saved token+user to storage already
+        this.success = 'Registration successful. Redirecting to Sign In...';
+        setTimeout(() => {
+          this.router.navigate(['/signin']);
+        }, 900);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        const msg = (err && (err.message || (err.error && err.error.message))) ? (err.message || err.error.message) : 'Registration failed';
+        this.error = msg;
+      }
+    });
   }
 }
